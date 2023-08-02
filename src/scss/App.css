@@ -52,6 +52,10 @@ body {
   font-size: 1.25rem;
 }
 
+.header {
+  text-align: center;
+}
+
 .correct {
   background-color: green;
 }

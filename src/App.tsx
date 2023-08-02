@@ -40,7 +40,7 @@ const letters = [
   "z",
 ];
 
-function isCorrectInput(array: any[]) {
+function checkIfInputIsCorrect(array: any[]) {
   for (const ele of array) {
     console.log(ele);
     if (!letters.includes(ele.current.value.toLowerCase())) return false;
@@ -67,11 +67,17 @@ function checkLetter(
   else return "INCORRECT";
 }
 
-function defineColorOfDiv(state: "CORRECT" | "PARTIALLY_CORRECT" | "INCORRECT", otherClasses: string = "") {
-  switch(state) {
-    case "CORRECT": return `correct ${otherClasses}`
-    case "PARTIALLY_CORRECT": return `partCorrect ${otherClasses}`
-    case "INCORRECT": return `incorrect ${otherClasses}`
+function defineColorOfDiv(
+  state: "CORRECT" | "PARTIALLY_CORRECT" | "INCORRECT",
+  otherClasses: string[] = [""]
+) {
+  switch (state) {
+    case "CORRECT":
+      return `correct ${otherClasses.join(" ")}`;
+    case "PARTIALLY_CORRECT":
+      return `partCorrect ${otherClasses.join(" ")}`;
+    case "INCORRECT":
+      return `incorrect ${otherClasses.join(" ")}`;
   }
 }
 
@@ -79,6 +85,8 @@ let randWord = fixedRandomWordBruh(5, randomWord).split("");
 
 function App() {
   const [previousInputs, setPreviousInputs] = useState<PlaceType[][]>([]);
+
+  const [isCorrectInput, setIsCorrectInput] = useState(true);
 
   const numberOfTries = useRef(0);
 
@@ -90,14 +98,12 @@ function App() {
 
   const [hasUserGuessedWord, setHasUserGuessedWord] = useState(false);
 
-  console.log(randWord);
-
   let key = 0;
   let key2 = 25;
 
   function inputTextSumbitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (isCorrectInput(inputRefsArray)) {
+    if (checkIfInputIsCorrect(inputRefsArray)) {
       let numberOfCorrectGuesses = 0;
       const inputs: PlaceType[] = inputRefsArray.map((ref, index) => {
         const check = checkLetter(
@@ -125,8 +131,10 @@ function App() {
       }
 
       setCurrentIndex(0);
+      setIsCorrectInput(true);
       numberOfTries.current++;
-      console.log(numberOfTries.current);
+    } else {
+      setIsCorrectInput(false);
     }
   }
 
@@ -152,13 +160,21 @@ function App() {
 
   return (
     <div className="mainDiv">
+      <h2>Wordle game clone</h2>
+      {!isCorrectInput ? (
+        <h3 className="header">
+          Allowed to use only english letters
+          <br />
+          and all inputs should be filled
+        </h3>
+      ) : null}
       {previousInputs.map((row) => {
         return (
           <div className="inputRow" key={key++}>
             {row.map((place) => {
               return (
                 <div
-                  className={defineColorOfDiv(place.isCorrectInput, "place")}
+                  className={defineColorOfDiv(place.isCorrectInput, ["place"])}
                   key={key2++}
                 >
                   <p className="userInputParagraph">{place.value}</p>
