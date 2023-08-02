@@ -1,0 +1,65 @@
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.mainDiv {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: -1rem;
+}
+
+.inputForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputRow {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.25rem;
+}
+
+.place {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid black;
+  padding: 0.25rem;
+  text-align: center;
+  margin: 0.1rem;
+  font-size: 1.25rem;
+}
+
+.userInputParagraph {
+  font-size: 1.25rem;
+}
+
+.correct {
+  background-color: green;
+}
+
+.partCorrect {
+  background-color: yellow;
+}
+
+.incorrect {
+  background-color: red;
+}
