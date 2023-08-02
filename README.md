@@ -1,1 +1,1 @@
-# Clone of Wordle using WordsAPI
+# Clone of Wordle
